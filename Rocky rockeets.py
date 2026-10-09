@@ -99,4 +99,40 @@ def play_launch(dry_mass, fuel_mass):
         requested_burn = (throttle / 100.0) * burn_rate_full * dt
         actual_burn = min(fuel_mass, requested_burn)
         fuel_mass -= actual_burn
+        current_thrust = (actual_burn / (burn_rate_full * dt)) * max_thrust if (burn_rate_full* dt) > 0 else 0.0
+        accel = (current_thrust / total_mass) - gravity
+
+        if altitude <= 0.0 and accel < 0:
+            accel = 0.0
+            velocity = 0.0
+            altitude = 0.0
+
+        velocity += accel * dt
+        altitude += velocity * dt
+        step += 1
+
+        if altitude >= 500.0:
+            clear()
+            print("==================================================")
+            print("🏆 MISSION SUCCESS: LEVEL 1 CLEARED!")
+            print(f"Target apogee passed at T+{step * dt:.1f}s.")
+            print(f"Final Velocity : {velocity:.1f} m/s")
+            print(f"Remaining Fuel : {fuel_mass:.1f} kg")
+            print("==================================================")
+            return
+        if velocity < 0 and fuel_mass <= 0 and altitude > 0:
+            clear()
+            print("==================================================")
+            print("⚠️ MISSION FAILURE: APOGEE SHORT OF TARGET")
+            print(f"Max Altitude Achieved: {altitude:.1f} m (Target: 500.0 m)")
+            print("The vehicle ran out of fuel before reaching the target gate.")
+            print("==================================================")
+            return
+        
+        time.sleep(0.05)
+
+if __name__ == "__main__":
+    dry, fuel = configure_stage()
+    play_launch(dry, fuel)
+
         
