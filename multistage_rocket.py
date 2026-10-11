@@ -7,7 +7,7 @@ import csv
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-#====================== TELEMETRY FLIGHT RECORDER ====================
+# ====================== TELEMETRY FLIGHT RECORDER ====================
 class FlightRecorder:
     def __init__(self, filename="multistage_telemetry.csv"):
         self.filename = filename
@@ -31,7 +31,7 @@ class FlightRecorder:
             writer = csv.writer(f)
             writer.writerow(row)
 
-#===================== AERODYNAMICS & ATMOSPHERE ENGINE ====================
+# ===================== AERODYNAMICS & ATMOSPHERE ENGINE ====================
 class AtmosphereModel:
     RHO_0 = 1.225
     SCALE_HEIGHT = 8500.0
@@ -53,7 +53,7 @@ class AtmosphereModel:
         else:
             return base_cd + 0.25 / (mach ** 0.5)
 
-#======================== FLIGHT RECORDER SUMMARY =========================
+# ======================== FLIGHT RECORDER SUMMARY =========================
 def print_flight_summary(recorder, dt):
     if not recorder.records:
         return
@@ -70,7 +70,7 @@ def print_flight_summary(recorder, dt):
     print(f"Telemetry saved to        : {os.path.abspath(recorder.filename)}")
     print("=" * 60)
 
-#====================== VEHICLE STAGE CLASS ===================
+# ====================== VEHICLE STAGE CLASS ===================
 class RocketStage:
     def __init__(self, name, dry_mass, fuel_mass, max_thrust, burn_rate, cross_section_area):
         self.name = name
@@ -80,7 +80,7 @@ class RocketStage:
         self.burn_rate = burn_rate # kg/s
         self.area = cross_section_area
 
-#=========================== SIMULATION RUNNER ===========================
+# =========================== SIMULATION RUNNER ===========================
 def run_multistage_simulation():
     clear()
     print("================================================================")
@@ -88,7 +88,7 @@ def run_multistage_simulation():
     print("================================================================")
     print("Configuring Vehicle Stacks:")
     print("  • Stage 1 (Booster) : Dry 35kg | Fuel 80kg | Thrust 2200N")
-    print("  • Stage 1 (Upper) : Dry 15kg | Fuel 40kg | Thrust 900N")
+    print("  • Stage 2 (Upper)   : Dry 15kg | Fuel 40kg | Thrust 900N")
     print("=======================================================")
     input("\nPress Enter to initiate countdown...")
 
@@ -131,7 +131,7 @@ def run_multistage_simulation():
         print(f"--- T+{step * dt:05.1f}s | ACTIVE STACK:  {stage_label} ---")
         print(f"Altitude      : {altitude:6.1f} m")
         print(f"Velocity      : {velocity:6.1f} m/s (Mach {mach:4.2f})")
-        print(f"Toatal Mass   : {total_mass:6.1f} kg | TWR: {twr:4.2f}")
+        print(f"Total Mass    : {total_mass:6.1f} kg | TWR: {twr:4.2f}")
         print(f"Dyn Pressure q: {q:6.1f} Pa  | Drag: {drag_force:6.1f} N")
         print("-" * 55)
 
@@ -143,7 +143,7 @@ def run_multistage_simulation():
                 current_thrust = current_stage.max_thrust
             else:
                 if current_stage == stage1:
-                    print("\n  STAGE 1 DEPLETED: Initiating staging seperation...")
+                    print("\n  STAGE 1 DEPLETED: Initiating staging separation...")
                     current_stage = "COAST"
                     staging_timer = 1.5
                 else:
@@ -161,7 +161,7 @@ def run_multistage_simulation():
         net_force = current_thrust - (total_mass * gravity) - drag_force
         accel = net_force / total_mass
 
-        if altitude <= 0.0 and accel< 0:
+        if altitude <= 0.0 and accel < 0:
             accel = 0.0
             velocity = 0.0
             altitude = 0.0
@@ -170,7 +170,7 @@ def run_multistage_simulation():
 
         velocity += accel * dt
         altitude += velocity * dt
-        step +=1
+        step += 1
 
         if velocity < 0 and altitude > 100:
             clear()
