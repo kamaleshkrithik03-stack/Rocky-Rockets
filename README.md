@@ -1,4 +1,4 @@
-# 🚀 Rocky Rockets
+#  Rocky Rockets
 
 A terminal-based rocket simulator exploring variable-mass differential motion, TWR constraints, and suborbital flight physics.
 
@@ -11,4 +11,4 @@ Built for the Hack Club Terra challenge.
 
 ## How to Run
 ```bash
-python "Rocky rockeets.py"
+python "karman_reusable_rocket.py"
