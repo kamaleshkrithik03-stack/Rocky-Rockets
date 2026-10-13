@@ -177,7 +177,7 @@ def run_karman_mission():
         t += dt
         step += 1
 
-      # Absolute Ground Clamping
+
         if altitude <= 0.0:
             altitude = 0.0
             velocity = 0.0
