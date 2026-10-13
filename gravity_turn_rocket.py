@@ -144,7 +144,7 @@ def run_gravity_turn_simulation():
                 current_thrust = current_stage.max_thrust
             else:
                 if current_stage == stage1:
-                    print("\n🔥 STAGE 1 DEPLETED: Initiating staging separation...")
+                    print("\n STAGE 1 DEPLETED: Initiating staging separation...")
                     current_stage = "COAST"  # Fixed: curreny_stage to current_stage
                     staging_timer = 1.5
                 else:
