@@ -7,7 +7,7 @@ import csv
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-# ==================== TELEMETRY FLIGHT RECORDER ====================
+# ==================== TELEMETRY FLIGHT RECORDER ==================
 class FlightRecorder:
     def __init__(self, filename="flight_telemetry.csv"):
         self.filename = filename
@@ -48,7 +48,7 @@ class FlightRecorder:
         drag_loss = sum((r[7] / r[4]) * dt for r in self.records)
 
         print("\n" + "=" * 58)
-        print("📊 AVIONICS POST-FLIGHT TELEMETRY REPORT")
+        print(" AVIONICS POST-FLIGHT TELEMETRY REPORT")
         print("=" * 58)
         print(f"Max Altitude (Apogee)    : {peak_alt:8.1f} m")
         print(f"Max Velocity             : {peak_vel:8.1f} m/s")
@@ -88,9 +88,7 @@ class AtmosphereModel:
 # ==================== SIMULATION RUNNER ====================
 def configure_stage():
     clear()
-    print("==========================================================")
-    print("🚀 LEVEL 1 (PHASE 2): TELEMETRY RECORDER & POST-FLIGHT DATA")
-    print("==========================================================")
+    print(" LEVEL 1 (PHASE 2): TELEMETRY RECORDER & POST-FLIGHT DATA")
     print("Mission Target: Reach an apogee of 500.0 m.")
     print("Vehicle Profile:")
     print("  • Dry Mass: 50.0 kg | Cross-Sectional Area: 0.0707 m²")
@@ -99,7 +97,6 @@ def configure_stage():
     print("  • High-rate black-box CSV flight recorder")
     print("  • Numerical Δv budget & drag loss accounting")
     print("  • Peak G-load and dynamic pressure (q) telemetry")
-    print("==========================================================")
 
     dry_mass = 50.0
     while True:
@@ -167,7 +164,7 @@ def play_launch(dry_mass, fuel_mass):
 
         if fuel_mass <= 0:
             throttle = 0.0
-            print("\n⚠️ MECO: Main Engine Cut-Off. Aerodynamic coasting...")
+            print("\n MECO: Main Engine Cut-Off. Aerodynamic coasting...")
             time.sleep(0.15)
         else:
             while True:
@@ -208,19 +205,15 @@ def play_launch(dry_mass, fuel_mass):
 
         if altitude >= 500.0:
             clear()
-            print("==========================================================")
-            print("🏆 MISSION SUCCESS: LEVEL 1 CLEARED (APOGEE EXCEEDED)!")
+            print(" MISSION SUCCESS: LEVEL 1 CLEARED (APOGEE EXCEEDED)!")
             print(f"Target passed at T+{step * dt:.1f}s.")
-            print("==========================================================")
             recorder.print_post_flight_summary(dt)
             return
 
         if velocity < 0 and fuel_mass <= 0 and altitude > 0:
             clear()
-            print("==========================================================")
-            print("⚠️ MISSION FAILED: APOGEE SHORT OF TARGET")
+            print(" MISSION FAILED: APOGEE SHORT OF TARGET")
             print(f"Max Altitude Achieved: {altitude:.1f} m (Target: 500.0 m)")
-            print("==========================================================")
             recorder.print_post_flight_summary(dt)
             return
 
