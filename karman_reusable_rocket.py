@@ -177,7 +177,7 @@ def run_karman_mission():
         t += dt
         step += 1
 
-        # Absolute Ground Clamping
+      # Absolute Ground Clamping
         if altitude <= 0.0:
             altitude = 0.0
             velocity = 0.0
@@ -187,36 +187,12 @@ def run_karman_mission():
 
         time.sleep(0.01)
 
-    # =====================================================================
-    # FUN EXTRA: LANDINGCELEBRATION ASCII SCREEN
-    # =====================================================================
     clear()
     print("================================================================")
-    print("🎉 MISSION ACCOMPLISHED: KÁRMÁN BREACH & SUCCESSFUL BOOSTER LANDING 🎉")
+    print("🎉 MISSION ACCOMPLISHED: KÁRMÁN BREACH & SUCCESSFUL BOOSTER LANDING")
+    print(f"Telemetry saved to: {os.path.abspath(recorder.filename)}")
     print("================================================================")
-    print("""
-                       _|\_
-                       |  |
-                       |  |
-                       |--|
-                       |  |
-                      /    \\
-                     /      \\
-                    / /|  |\\ \\
-                   /_/_|__|_*_\\
-                      | || |
-                     /  ||  \\
-                    |___||___|
-                   /          \\
-                  /     🔥     \\
-                 /____________ _\\
-        ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
-        """)
-    print(f"⏱️ Total Mission Duration : T+{t:.2f} seconds")
-    print(f"🎯 Final Touchdown Status : PERFECT (0.0 m)")
-    print(f"📁 Telemetry Saved to     : {os.path.abspath(recorder.filename)}")
-    print("================================================================")
-    input("\nPress Enter to exit mission control...")
+    input("\nPress Enter to exit...")
 
 if __name__ == "__main__":
     run_karman_mission()
