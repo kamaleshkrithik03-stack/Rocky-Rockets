@@ -47,7 +47,7 @@ class FlightRecorder:
         drag_loss = sum((abs(r[7]) / r[4]) * dt for r in self.records)
 
         print("\n" + "=" * 60)
-        print(f"📊 FLIGHT OUTCOME: {outcome_str}")
+        print(f" FLIGHT OUTCOME: {outcome_str}")
         print("=" * 60)
         print(f"Touchdown velocity        : {touchdown_v:8.2f} m/s")
         print(f"Max Altitude (Apogee)     : {peak_alt:8.1f} m")
@@ -97,7 +97,6 @@ def compute_suicide_burn_alt(velocity, current_mass, max_thrust, gravity):
 # ======================== SIMULATION RUNNER ===================
 def configure_stage():
     clear()
-    print("============================================================")
     print("Level 2 (PHASE 3): POWERED DESCENT & SUICIDE BURN")
     print("Mission Profile:")
     print(" 1. Ascent phase to > 500 m apogee.")
@@ -107,7 +106,6 @@ def configure_stage():
     print(" • Dry Mass: 50.0 kg | Cross-section: 0.0707 m^2")
     print(" • Max Engine Thrust: 1800.0 N (Upgraded for hoverslam)")
     print(" • Fuel Flow Rate: 6.0 kg/s at 100% throttle")
-    print("=========================================================")
 
     dry_mass = 50.0
     while True:
@@ -189,7 +187,7 @@ def play_launch(dry_mass, fuel_mass):
         #Throttle input
         if fuel_mass <= 0:
             throttle = 0.0
-            print("\n⚠️ PROPELLANT DEPLETED. Unpowered ballistic flight.")
+            print("\n PROPELLANT DEPLETED. Unpowered ballistic flight.")
             time.sleep(0.12)
         else:
             default_thro = "0" if (descending and altitude > hoverslam_threshold + 20) else "100"
@@ -237,11 +235,11 @@ def play_launch(dry_mass, fuel_mass):
             altitude = 0.0
             clear()
             if abs(velocity) <= 3.0:
-                outcome = "🏆 SUCCESSFUL HOVERSLAM TOUCHDOWN! BOOSTER RECOVERED"
+                outcome = " SUCCESSFUL HOVERSLAM TOUCHDOWN! BOOSTER RECOVERED"
             elif abs(velocity) <= 8.0:
-                outcome = "⚠️ HARD LANDING - LANDING GEAR COLLAPSE"
+                outcome = " HARD LANDING - LANDING GEAR COLLAPSE"
             else:
-                outcome = "💥 CRASH - RAPID UNSCHEDULED DISASSEMBLY (RUD)"
+                outcome = " CRASH - RAPID UNSCHEDULED DISASSEMBLY (RUD)"
             recorder.print_post_flight_summary(dt, outcome)
             return
 
