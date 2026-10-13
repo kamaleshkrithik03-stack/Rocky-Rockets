@@ -7,9 +7,9 @@ import csv
 def clear():
     os.system('cls' if os.name == 'nt' else 'clear')
 
-# =====================================================================
+
 # TELEMETRY FLIGHT RECORDER
-# =====================================================================
+
 class FlightRecorder:
     def __init__(self, filename="karman_mission_telemetry.csv"):
         self.filename = filename
@@ -32,9 +32,9 @@ class FlightRecorder:
             writer = csv.writer(f)
             writer.writerow(row)
 
-# =====================================================================
-# ATMOSPHERE MODEL (Extended for Space Transition)
-# =====================================================================
+
+# ATMOSPHERE MODEL 
+
 class AtmosphereModel:
     RHO_0 = 1.225
     SCALE_HEIGHT = 8500.0
@@ -48,20 +48,16 @@ class AtmosphereModel:
             return 0.0  # Vacuum of space past Kármán line
         return cls.RHO_0 * math.exp(-altitude / cls.SCALE_HEIGHT)
 
-# =====================================================================
-# MASTER SIMULATION RUNNER
-# =====================================================================
+# SIMULATION RUNNER
+
 def run_karman_mission():
     clear()
-    print("================================================================")
-    print("🚀 LEVEL 5 (PHASE 7): KÁRMÁN LINE BREACH & REUSABLE BOOSTER LANDING")
-    print("================================================================")
+    print("LEVEL 5 (PHASE 7): KÁRMÁN LINE BREACH & REUSABLE BOOSTER LANDING")
     print(" Mission Profile:")
     print("  1. Heavy lift ascent & gravity pitch-over")
     print("  2. Stage separation & Tuned upper stage push past 100km Kármán Line")
     print("  3. Payload Deployment in space")
     print("  4. Booster entry burn & vertical propulsive landing (Hoverslam)")
-    print("================================================================")
     input("\nPress Enter to initiate orbital-class launch sequence...")
 
     recorder = FlightRecorder("karman_mission_telemetry.csv")
@@ -154,7 +150,7 @@ def run_karman_mission():
 
         elif phase == "PAYLOAD_SEP":
             if not payload_deployed:
-                print("\n🛰️ PAYLOAD DEPLOYED SUCCESSFULLY INTO SUBORBITAL SPACE!")
+                print("\nPAYLOAD DEPLOYED SUCCESSFULLY INTO SUBORBITAL SPACE!")
                 payload_deployed = True
                 time.sleep(1.5)
             phase = "BOOSTER_ENTRY"
@@ -188,10 +184,8 @@ def run_karman_mission():
         time.sleep(0.01)
 
     clear()
-    print("================================================================")
-    print("🎉 MISSION ACCOMPLISHED: KÁRMÁN BREACH & SUCCESSFUL BOOSTER LANDING")
+    print(" MISSION ACCOMPLISHED: KÁRMÁN BREACH & SUCCESSFUL BOOSTER LANDING")
     print(f"Telemetry saved to: {os.path.abspath(recorder.filename)}")
-    print("================================================================")
     input("\nPress Enter to exit...")
 
 if __name__ == "__main__":
